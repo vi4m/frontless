@@ -9,7 +9,7 @@ struct Container<Content: View>: View {
     init(@ViewBuilder content: () -> Content) {
         self.content = content()
     }
-
+    
     var body: some View {
         HTML("div.container", [:]) {
             content

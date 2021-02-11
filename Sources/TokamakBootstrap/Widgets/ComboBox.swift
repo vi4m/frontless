@@ -3,6 +3,9 @@ import class OpenCombine.PassthroughSubject
 import struct OpenCombine.Published
 import TokamakDOM
 
+typealias PickerItem = (value: String, content: String)
+
+
 struct ComboBox: View {
     var selection: Binding<String>
     var items: [PickerItem]
@@ -17,7 +20,7 @@ struct ComboBox: View {
 
     public var body: some View {
         AnyView(HTML("label") {
-            Text(" ")
+            Span(" ")
             DynamicHTML("select", ["class": "_tokamak-formcontrol"], listeners: ["change": {
                 let valueString = $0.target.object!.value.string
                 selection.wrappedValue = valueString!
