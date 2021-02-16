@@ -5,6 +5,9 @@ import TokamakDOM
 
 public typealias Style = [StyleCommand: String]
 
+public class Dupa {
+    
+}
 
 public struct MyModifiedContent<Content>  where Content: Dom{
     @Environment(\.self) public var environment
@@ -98,6 +101,4 @@ extension Button {
     public func style(_ style: Style) -> some View { 
         return MyModifiedContent.init(content: self, style: style)
     }
-    
-    
 }
