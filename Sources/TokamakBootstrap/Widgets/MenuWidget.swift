@@ -2,15 +2,24 @@ import JavaScriptKit
 import TokamakCore
 import TokamakDOM
 
-struct MenuItem: Hashable {
+public struct MenuItem: Hashable {
     var label: String
     var url: String
+    
+    public init(label: String, url: String) {
+        self.label = label
+        self.url = url 
+    }
 }
 
-struct Menu: View {
+public struct Menu: View {
     @Binding var items: [MenuItem]
 
-    var body: some View {
+    public init(items: Binding<[MenuItem]>) {
+        self._items = items
+    }
+    
+    public var body: some View {
         HTML("nav", ["class": "col-md-4 col-lg-3", "style": "min-width: 220px"]) {
             ForEach(items, id: \.self, content: { e in
                 HTML("a", ["href": "?#\(e.url)"], content: e.label)

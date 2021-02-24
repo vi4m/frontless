@@ -3,10 +3,10 @@ import class OpenCombine.PassthroughSubject
 import struct OpenCombine.Published
 import TokamakDOM
 
-typealias PickerItem = (value: String, content: String)
+public typealias PickerItem = (value: String, content: String)
 
 
-struct ComboBox: View {
+public struct ComboBox: View {
     var selection: Binding<String>
     var items: [PickerItem]
     var placeholder: String

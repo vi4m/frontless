@@ -5,18 +5,13 @@ import TokamakDOM
 
 public typealias Style = [StyleCommand: String]
 
-public class Dupa {
-    
-}
-
-public struct MyModifiedContent<Content>  where Content: Dom{
+public struct MyModifiedContent<Content> where Content: Dom{
     @Environment(\.self) public var environment
     public private(set) var content: Content
     
     public init(content: Content, style: Style) {
         self.content = content
         self.content.setStyle(style: style)
-        
      }
 }
 
@@ -63,14 +58,14 @@ public class Dom {
 }
 
 
-class Button: Dom, View {
+public class Button: Dom, View {
    
     let label: String
     
     @State var isPressed: Bool = false
     var action: () -> Void
     
-    init(_ label: String,
+    public init(_ label: String,
          action: @escaping () -> Void)
     {
         self.action = action
@@ -78,7 +73,7 @@ class Button: Dom, View {
         
     }
     
-    var body: some View {
+    public var body: some View {
         let listeners: [String: Listener] = [
             "pointerdown": { _ in self.isPressed = true },
             "pointerup": { [self] _ in

@@ -38,7 +38,7 @@ extension Form: ParentView {
     }
 }
 
-struct FormField<Content: View>: View {
+public struct FormField<Content: View>: View {
     var label: String
     @Binding var text: String
     var validation: ValidationFunc = Validations.none
@@ -62,7 +62,7 @@ struct FormField<Content: View>: View {
         self.helpText = helpText
     }
 
-    var body: some View {
+    public var body: some View {
         HTML("div", ["class": "row"]) {
             HTML("div", ["style": "white-space: normal; word-wrap: none; padding-bottom: 30px", "class": "col-sm-12 col-md-3"]) {
                 HTML("div", [:], content: label)

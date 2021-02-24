@@ -3,13 +3,13 @@ import Foundation
 import TokamakCore
 import TokamakStaticHTML
 
-internal struct Div<Content: View>: View {
+public struct Div<Content: View>: View {
     let id: String
     let `class`: String
     let style: String
     let content: Content
 
-    init(
+    public init(
         id: String = "", class: String = "",
         style: String = "",
         @ViewBuilder content: () -> Content
@@ -20,7 +20,7 @@ internal struct Div<Content: View>: View {
         self.class = `class`
     }
 
-    var body: some View {
+    public var body: some View {
         HTML("div", ["id": id, "class": `class`, "style": style]) {
             content
         }

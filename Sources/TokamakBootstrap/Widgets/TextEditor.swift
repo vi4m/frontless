@@ -4,7 +4,7 @@ import class OpenCombine.PassthroughSubject
 import struct OpenCombine.Published
 import TokamakDOM
 
-struct TextEditor: View {
+public struct TextEditor: View {
     var value: Binding<String>
 
     public init(value: Binding<String>) {

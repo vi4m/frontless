@@ -4,11 +4,11 @@ import TokamakCore
 import TokamakDOM
 import TokamakStaticHTML
 
-internal struct ShowIf<Content: View>: View {
+public struct ShowIf<Content: View>: View {
     let expression: () -> Bool
     let content: Content
 
-    init(
+    public init(
         _ expression: @escaping () -> Bool,
         @ViewBuilder content: () -> Content
     ) {
@@ -16,7 +16,7 @@ internal struct ShowIf<Content: View>: View {
         self.expression = expression
     }
 
-    var body: some View {
+    public var body: some View {
         HTML("div", ["style": "display: \(self.expression() ? "block" : "none")"]) {
             content
         }

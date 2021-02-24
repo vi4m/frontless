@@ -3,13 +3,13 @@ import JavaScriptKit
 import TokamakCore
 import TokamakDOM
 
-struct MainMenu: View, Hashable {
+public struct MainMenu: View, Hashable {
     let label: String
     let href: String
     let selected: Bool
     let logo: Bool
 
-    init(_ label: String,
+    public init(_ label: String,
          href: String,
          selected: Bool = false,
          logo: Bool = false)
@@ -20,7 +20,7 @@ struct MainMenu: View, Hashable {
         self.logo = logo
     }
 
-    var body: some View {
+    public var body: some View {
         var style = ""
         if selected {
             style = "background-color: var(--header-hover-back-color)"

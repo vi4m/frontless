@@ -3,11 +3,16 @@ import Foundation
 import TokamakDOM
 import TokamakStaticHTML
 
-struct Table: View {
+public struct Table: View {
     @Binding var items: [[String]]
     @State var columns: [String]
 
-    var body: some View {
+    public init(items: Binding<[[String]]>, columns: [String]) {
+        self._items = items
+        self._columns = .init(wrappedValue: columns)
+    }
+    
+    public var body: some View {
         HTML("div", ["class": "s"]) {
             HTML("table", ["class": "table table-striped"]) {
                 HTML("thead") {

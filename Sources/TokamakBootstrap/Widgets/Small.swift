@@ -3,7 +3,7 @@ import Foundation
 import TokamakDOM
 import TokamakStaticHTML
 
-struct Small: View {
+public struct Small: View {
     let id: String
     let `class`: String
     var style: String
@@ -19,7 +19,7 @@ struct Small: View {
         self.class = `class`
     }
 
-    var body: some View {
+    public var body: some View {
         HTML("small", ["id": id, "class": `class`, "style": style], content: content)
     }
 }
