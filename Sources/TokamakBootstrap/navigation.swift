@@ -4,11 +4,11 @@ import JavaScriptKit
 import TokamakCore
 import TokamakDOM
 
-func navigate(to: String) {
+public func navigate(to: String) {
     location.hash = JSValue(stringLiteral: to)
 }
 
-func parseHash(i: String) -> (page: String, args: [String]) {
+public func parseHash(i: String) -> (page: String, args: [String]) {
     var page: String = ""
     var arguments: [String] = []
 
@@ -29,11 +29,11 @@ func parseHash(i: String) -> (page: String, args: [String]) {
 public final class HashState: ObservableObject {
     var onHashChange: JSClosure!
 
-    @Published var currentHash = location.hash.string!
-    @Published var currentPage = ""
-    @Published var currentArguments: [String] = []
+    @Published public var currentHash = location.hash.string!
+    @Published public var currentPage = ""
+    @Published public var currentArguments: [String] = []
 
-    init() {
+    public init() {
         debugPrint(#function)
 
         let onHashChange = JSClosure { [weak self] _ -> JSValue in
