@@ -42,6 +42,5 @@ public class ValidationState: ObservableObject {
     }
 
     deinit {
-        print("DEINIT validationstate")
     }
 }

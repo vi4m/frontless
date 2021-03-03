@@ -4,11 +4,13 @@ import CombineShim
 import TokamakBootstrap
 import Logging
 
-let logger = Logger(label: "tokamakbootstrap")
+LoggingSystem.bootstrap({ _ in return StreamLogHandler.standardOutput(label:"demo-app") })
+var logger = Logger(label: "demo-app")
+logger.logLevel = .debug
 
 struct DemoApp: App {
     var body: some Scene {
-        WindowGroup(" ⛢ Tasks") {
+        WindowGroup(" ⛢ Demo") {
             ContentView().environmentObject(ErrorsViewModel())
         }
     }
@@ -33,6 +35,7 @@ struct ContentView: View {
 
     var body: some View {
         Div(id: "root", style: "overflow: scroll; display: block; justify-content: left; width: 100%; height: 100%") {
+            // Upper menu
             Row {
                 HTML("header", ["class": "row col-sm"]) {
                     ForEach(self.getMenu(), id: \.self) { item in
@@ -45,10 +48,13 @@ struct ContentView: View {
                 }
             }
             Row {
+                // Left menu
                 Col(width: 2) {
                     Menu(items: $menuItems).frame(width: 300, alignment: .topLeading)
                 }
+                // Content page
                 Col(width: 10) {
+                    Text(String(describing: hashState.currentArguments))
                     currentPage
                 }
             }
@@ -67,10 +73,15 @@ _ = document.head.object!.insertAdjacentHTML!("beforeend", #"""
 <style type="text/css">
     :root {
         --header-fore-color: white;
-        --header-back-color: #0369a7;
-        --nav-background-color: #0369a7;
+        --header-back-color: #0399a7;
+        --nav-background-color: #0399a7;
         --header-hover-back-color: #02568a; 
     }
+
+    header a.logo {
+        text-transform: none;
+    }
+
     .s {
 
         min-width: 800px;
@@ -111,5 +122,8 @@ _ = document.head.object!.insertAdjacentHTML!("beforeend", #"""
 
 </style>
 """#)
+
+
+
 
 DemoApp.main()

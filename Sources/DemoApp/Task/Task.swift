@@ -18,7 +18,6 @@ struct Task: Codable, ConvertibleToJSValue, Hashable {
         hasher.combine(title)
     }
 
-    // var reporter: String? = ""
     func jsValue() -> JSValue {
         return [
             "title": title,
@@ -66,11 +65,4 @@ struct TaskAction: Codable, ConvertibleToJSValue, Hashable {
 
         ].jsValue()
     }
-}
-
-public func measure(_ f: () -> ()) -> Double {
-    let t0 = window.performance.now().number!
-    f()
-    let t1 = window.performance.now().number!
-    return t1 - t0
 }

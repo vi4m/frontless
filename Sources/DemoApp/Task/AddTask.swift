@@ -20,21 +20,19 @@ struct AddTask: View {
     @State var taskType: String = ""    
     @State var selection: String = ""
     @State var cancellable: AnyCancellable? = nil
+   
+    @State var editId: String? = nil
     
-    var editId: String? 
-    
-    @ObservedObject public var dataViewModel = TaskModel()
+    @ObservedObject public var taskModel = TaskModel()
     @ObservedObject public var validationState = ValidationState()
     
     init(id: String? = nil) {
         if let id = id {
-            self.editId = id
-            dataViewModel.getBy(id: id)
+            taskModel.getBy(id: id)
         }
     }
     
     var body: some View {
-       
         return Div {
             Form(title: "Add task") {
                 Container {
@@ -56,6 +54,12 @@ struct AddTask: View {
                                                     PickerItem(content: String(describing: prio), value: String(prio.rawValue))
                                                   }))
                                               }            
+                    ShowIf({ priority == "2" }) {
+                                       FormField(label: "⌛Why so critical?",
+                                                 helpText: """
+                                                 Provide explanation why it has to be done before everything else.
+                                                 """, validation: Validations.none, state: validationState, text: $whyNow) { TextEditor(value: $whyNow) }
+                                   }
                     
                     FormField(label: "Type", validation: Validations.required, state: validationState, text: $taskType) {
                                                               ComboBox(selection: $taskType, items: TaskType.allCases.map({ (taskType)  in
@@ -63,18 +67,11 @@ struct AddTask: View {
                                                               }))
                                                           }            
                          
-                    ShowIf({ priority == "2" }) {
-                        FormField(label: "⌛Why so critical?",
-                                  helpText: """
-                                  Provide explanation why it has to be done before everything else.
-                                  """, validation: Validations.none, state: validationState, text: $whyNow) { TextEditor(value: $whyNow) }
-                    }
+               
 
                     FormField(label: "Assignee", validation: Validations.required, state: validationState, text: $assignee) {
-                        ComboBox(selection: $assignee, items: [
-                            ("0", "Marcin Kliks"),
-                            ("1", "Arkadiusz Adamski"),
-                        ])
+                        ComboBox(selection: $assignee, items: taskModel.assignees
+                        )
                     }
                 }
                 Row {
@@ -85,19 +82,18 @@ struct AddTask: View {
                     }
                     Col {
                         Button("OK") {
-                            print("Type" + taskType)
-                            print("Prio: " + priority)
                             validationState.showHints = true                            
                             if validationState.ok {
-                                dataViewModel.addTask(task: Task(
+                                taskModel.addTask(task: Task(
+                                    
                                     title: title, 
-                                    why: description, id: String(UUID().hashValue),
+                                    why: description, 
+                                    id: self.editId ?? String(UUID().hashValue),
                                     need: whyNow,
                                     project: project, type: TaskType(rawValue: Int(taskType)!)!,
                                     assignee: assignee, priority: TaskPriority(rawValue: Int(priority)!)!, description: description 
                                 )
                                 )
-                                print("DONE")
                                 navigate(to: "ListTasks")
                             }
                         }
@@ -106,15 +102,18 @@ struct AddTask: View {
             }
             HTML("div", ["class": "no-flex"]) {}
         }._onMount {
-            self.cancellable = dataViewModel.$tasks.sink { [ self] (task) in
-                guard let task = task.first else {
+            self.cancellable = taskModel.$task.sink { [ self] (task) in
+                guard let task = task else {
                     return
                 }
                 self.title = task.title
+                self.description = task.description
                 self.project = task.project
+                self.taskType = String(task.type.rawValue)
                 self.priority = String(task.priority.rawValue)
                 self.assignee = task.assignee
                 self.whyNow = task.why
+                self.editId = task.id                
             }
         }
     }

@@ -12,7 +12,7 @@ public func parseHash(i: String) -> (page: String, args: [String]) {
     var page: String = ""
     var arguments: [String] = []
 
-    debugPrint(#function)
+    logger.debug(#function)
     let a = Array(i)
     if let position: Int = a.firstIndex(of: "?") {
         page = String(a[..<position])
@@ -34,14 +34,14 @@ public final class HashState: ObservableObject {
     @Published public var currentArguments: [String] = []
 
     public init() {
-        debugPrint(#function)
+        logger.debug(#function)
 
         let onHashChange = JSClosure { [weak self] _ -> JSValue in
-            debugPrint("onHashChange")
+            logger.debug("onHashChange")
             self?.currentHash = location.hash.string!
             let (page, args) = parseHash(i: self!.currentHash)
+            self?.currentArguments = args            
             self?.currentPage = page
-            self?.currentArguments = args
             return .undefined
         }
         currentHash = location.hash.string!

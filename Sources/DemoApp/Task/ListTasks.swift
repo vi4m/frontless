@@ -5,7 +5,8 @@ import TokamakStaticHTML
 import TokamakBootstrap
 
 struct ListTasks: View {
-    @ObservedObject private var dataViewModel = TaskModel()
+    @ObservedObject private var taskViewModel = TaskModel()
+    @ObservedObject private var teamViewModel = TeamModel()    
 
     @State var text: String = ""
     @Binding var menuItems: [MenuItem]
@@ -13,7 +14,7 @@ struct ListTasks: View {
     @State var choosenStatus: String = ""
     
     func filter() -> [[String]]  {
-        let items = dataViewModel.tasks.filter {
+        let items = taskViewModel.tasks.filter {
             (text.isEmpty ? true : $0.title.lowercased().contains(text)) &&
                 (choosenProject.isEmpty ? true : $0.project.lowercased() == choosenProject) && 
                 (choosenStatus.isEmpty ? true : $0.status.rawValue == Int(choosenStatus)) 
@@ -28,7 +29,7 @@ struct ListTasks: View {
            task.project, 
            "\(task.status)", 
            task.assignee, 
-           "<a href=\"?#AddTask?id=\(task.id)\">Edit <span class='icon-edit'></span></a>"
+           "<a href=\"?#AddTask?\(task.id)\">Edit <span class='icon-edit'></span></a>"
           ]
       }
     public var body: some View {
@@ -44,13 +45,15 @@ struct ListTasks: View {
             Row {
                 TextField("Search", text: $text,
                           onEditingChanged: { _ in
-                              print("Changed!")
                           }).textFieldStyle(RoundedBorderTextFieldStyle())
                 ComboBox(
-                    selection: $choosenProject, items: dataViewModel.teams, placeholder: "Project"
+                    selection: $choosenProject, 
+                    items: teamViewModel.teams.map { 
+                        PickerItem(value: $0.id, content: $0.name)
+                    }, placeholder: "Team"
                 )
                 ComboBox(
-                    selection: $choosenStatus, items: dataViewModel.statuses, placeholder: "Status"
+                    selection: $choosenStatus, items: taskViewModel.statuses, placeholder: "Task status"
                 )
             }  
 
@@ -61,14 +64,11 @@ struct ListTasks: View {
                     "ID", "Title", "Project", "Status",  "Assignee", "Actions", "Actions"
                 ]
             )
-            Small("Count: \(String(dataViewModel.tasks.count))").clipped()            
+            Small("Count: \(String(taskViewModel.tasks.count))").clipped()            
 
             .onAppear {
-                menuItems = [MenuItem(label: "Q12021", url: ""),
-                MenuItem(label: "Moje zespoły", url: ""),
-                MenuItem(label: "Dodaj OKR", url: ""),
-                MenuItem(label: "Dodaj OKR", url: "")]
-                
+                menuItems = [MenuItem(label: "Add Task", url: "AddTask"),
+                ]
             }
         }
     }
