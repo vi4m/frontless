@@ -38,6 +38,7 @@ class TaskModel: ObservableObject {
             writableTasks.append(task)
             let bytesToSave = try JSONEncoder().encode(writableTasks)
             _ = localStorage.setItem!("tasks", String(bytes: bytesToSave, encoding: .utf8)!)
+            
         }            
         catch {
             logger.error("Error saving to local storage: \(error)")

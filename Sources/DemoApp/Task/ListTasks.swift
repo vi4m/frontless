@@ -10,13 +10,15 @@ struct ListTasks: View {
 
     @State var text: String = ""
     @Binding var menuItems: [MenuItem]
-    @State var choosenProject: String = ""
+    @State var choosenTeam: String = ""
     @State var choosenStatus: String = ""
+    
+    var teamName: String = ""
     
     func filter() -> [[String]]  {
         let items = taskViewModel.tasks.filter {
             (text.isEmpty ? true : $0.title.lowercased().contains(text)) &&
-                (choosenProject.isEmpty ? true : $0.project.lowercased() == choosenProject) && 
+                (choosenTeam.isEmpty ? true : $0.project.lowercased() == choosenTeam) && 
                 (choosenStatus.isEmpty ? true : $0.status.rawValue == Int(choosenStatus)) 
             
         }
@@ -24,15 +26,19 @@ struct ListTasks: View {
     }
     
     func tableRowFor(task: Task) -> [String] {
-          [task.id, 
+       
+        let teamName = teamViewModel.teams[task.team]?.name ?? "-"
+         return [task.id, 
            task.title, 
            task.project, 
            "\(task.status)", 
            task.assignee, 
+           teamName,            
            "<a href=\"?#AddTask?\(task.id)\">Edit <span class='icon-edit'></span></a>"
           ]
       }
     public var body: some View {
+        
         let filtered = Binding<[[String]]>(
             get: {
                 return self.filter()
@@ -47,9 +53,9 @@ struct ListTasks: View {
                           onEditingChanged: { _ in
                           }).textFieldStyle(RoundedBorderTextFieldStyle())
                 ComboBox(
-                    selection: $choosenProject, 
+                    selection: $choosenTeam, 
                     items: teamViewModel.teams.map { 
-                        PickerItem(value: $0.id, content: $0.name)
+                        PickerItem(value: $0.value.id, content: $0.value.name)
                     }, placeholder: "Team"
                 )
                 ComboBox(
@@ -61,7 +67,7 @@ struct ListTasks: View {
             Table(
                 items: filtered,
                 columns: [
-                    "ID", "Title", "Project", "Status",  "Assignee", "Actions", "Actions"
+                    "ID", "Title", "Project", "Status",  "Assignee", "Team", "Actions"
                 ]
             )
             Small("Count: \(String(taskViewModel.tasks.count))").clipped()            

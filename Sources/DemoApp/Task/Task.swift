@@ -7,9 +7,10 @@ struct Task: Codable, ConvertibleToJSValue, Hashable {
     var id: String
     var need: String = ""
     var project: String
+    var team: String
     var type: TaskType = .bug
     var assignee: String
-    var status: TaskStatus = .draft
+    var status: TaskStatus = .open
     var reviews: [TaskAction] = []
     var priority: TaskPriority = .high
     var description: String
@@ -31,10 +32,10 @@ struct Task: Codable, ConvertibleToJSValue, Hashable {
 }
  
 enum TaskStatus: Int, Codable, CaseIterable {
-    case approved = 0
-    case returned = 1
-    case inReview = 2
-    case draft = 3
+    case open = 0
+    case in_progress = 1
+    case closed = 2
+    case reopened = 3
 }
 
 enum TaskType: Int, Codable, CaseIterable {

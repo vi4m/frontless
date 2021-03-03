@@ -11,3 +11,4 @@ public func measure(_ f: () -> ()) -> Double {
     let t1 = window.performance.now().number!
     return t1 - t0
 }
+

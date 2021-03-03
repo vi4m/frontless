@@ -7,7 +7,7 @@ import Foundation
 
 
 class TeamModel: ObservableObject {
-    @Published var teams = [Team]()
+    @Published var teams = [String: Team]()
     @Published var team: Team? = nil        
     
     let localStorage = JSObject.global.localStorage.object!    
@@ -18,17 +18,17 @@ class TeamModel: ObservableObject {
     
     public func getBy(id: String) {
 //        _ = window.xfetch!("http://localhost:8080/teams/\(id)", getClosure)
-        team = teams.filter({ (team) -> Bool in
-            team.id == id
-        }).first
+        team = teams[id]
     }
-   
+  
     public func addTeam(team: Team) {
         do {
-            var writableTeams = teams.filter { $0.id != team.id}                        
-            writableTeams.append(team)
+            var writableTeams = teams
+            print(writableTeams)
+            writableTeams[team.id] = team
             let bytesToSave = try JSONEncoder().encode(writableTeams)
             _ = localStorage.setItem!("teams", String(bytes: bytesToSave, encoding: .utf8)!)
+            teams = writableTeams
         }            
         catch {
             logger.error("Error saving to local storage: \(error)")
@@ -47,8 +47,8 @@ class TeamModel: ObservableObject {
         logger.debug("Loaded")        
         
         do {
-            let decoded: [Team] = try decoder.decode([Team].self, from: json)
-            teams = decoded
+            let decoded: [String: Team] = try decoder.decode([String: Team].self, from: json)
+            teams = decoded            
         }
         catch {
             logger.error("Error: \(error)")
@@ -58,7 +58,7 @@ class TeamModel: ObservableObject {
     init() {
         logger.debug("Initialize DataViewModel")
         listClosure = JSClosure { [weak self] arguments -> Void in
-            let teams: [Team] = try! JSValueDecoder().decode(from: arguments[0])
+            let teams: [String: Team] = try! JSValueDecoder().decode(from: arguments[0])
             self?.teams = teams
         }
         loadFromLocalStorage()

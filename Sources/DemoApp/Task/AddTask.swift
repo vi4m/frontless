@@ -11,19 +11,21 @@ struct AddTask: View {
     
     @State var title: String = ""
     @State var whyNow: String = ""
-    @State var priority: String = ""
+    @State var priority: String = "0"
     @State var description: String = ""
     @State var how: String = ""
     @State var assignee: String = ""
+    @State var team: String = ""
 
     @State var project: String = ""
-    @State var taskType: String = ""    
+    @State var taskType: String = "1"    
     @State var selection: String = ""
     @State var cancellable: AnyCancellable? = nil
    
     @State var editId: String? = nil
     
     @ObservedObject public var taskModel = TaskModel()
+    @ObservedObject public var teamModel = TeamModel()
     @ObservedObject public var validationState = ValidationState()
     
     init(id: String? = nil) {
@@ -45,10 +47,14 @@ struct AddTask: View {
 
                     FormField(label: "❓Description",
                               helpText: """
-                              """, validation: Validations.required, state: validationState, text: $description) { TextEditor(value: $description) }
+                              """, validation: Validations.none, state: validationState, text: $description) { TextEditor(value: $description) }
 
                    
-                    
+                    FormField(label: "Team", validation: Validations.required, state: validationState, text: $assignee) {
+                        ComboBox(selection: $team, items: teamModel.teams.map {
+                            PickerItem(content: $0.value.name, value: $0.value.id)
+                        })
+                                       }
                     FormField(label: "Piority", validation: Validations.required, state: validationState, text: $priority) {
                                                   ComboBox(selection: $priority, items: TaskPriority.allCases.map({ (prio)  in
                                                     PickerItem(content: String(describing: prio), value: String(prio.rawValue))
@@ -73,6 +79,7 @@ struct AddTask: View {
                         ComboBox(selection: $assignee, items: taskModel.assignees
                         )
                     }
+                    
                 }
                 Row {
                     Col {
@@ -85,12 +92,11 @@ struct AddTask: View {
                             validationState.showHints = true                            
                             if validationState.ok {
                                 taskModel.addTask(task: Task(
-                                    
                                     title: title, 
                                     why: description, 
-                                    id: self.editId ?? String(UUID().hashValue),
+                                    id: self.editId ?? window.uuid!().string!,
                                     need: whyNow,
-                                    project: project, type: TaskType(rawValue: Int(taskType)!)!,
+                                    project: project, team: team, type: TaskType(rawValue: Int(taskType)!)!,
                                     assignee: assignee, priority: TaskPriority(rawValue: Int(priority)!)!, description: description 
                                 )
                                 )
@@ -114,6 +120,7 @@ struct AddTask: View {
                 self.assignee = task.assignee
                 self.whyNow = task.why
                 self.editId = task.id                
+                self.team = task.team
             }
         }
     }

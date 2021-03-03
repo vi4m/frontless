@@ -3,6 +3,7 @@ import TokamakDOM
 import CombineShim
 import TokamakBootstrap
 import Logging
+import Foundation
 
 LoggingSystem.bootstrap({ _ in return StreamLogHandler.standardOutput(label:"demo-app") })
 var logger = Logger(label: "demo-app")
@@ -121,7 +122,6 @@ _ = document.head.object!.insertAdjacentHTML!("beforeend", #"""
 
 </style>
 """#)
-
 
 
 

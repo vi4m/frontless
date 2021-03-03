@@ -12,10 +12,10 @@ struct ListTeams: View {
     
     func filter() -> [[String]]  {
         let items = teamViewModel.teams.filter {
-            (text.isEmpty ? true : $0.name.lowercased().contains(text))
-            
+            (text.isEmpty ? true : $0.value.name.lowercased().contains(text))
         }
-        return items.map { self.tableRowFor(team: $0) }
+        print(items)
+        return items.map { self.tableRowFor(team: $0.value) }
     }
     
     func tableRowFor(team: Team) -> [String] {

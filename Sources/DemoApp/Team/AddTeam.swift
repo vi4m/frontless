@@ -48,8 +48,8 @@ struct AddTeam: View {
                             validationState.showHints = true                            
                             if validationState.ok {
                                 dataViewModel.addTeam(team: Team(
-                                                        name: name, id: self.editId ?? String(UUID().hashValue))
-                                )
+                                                        name: name, 
+                                    id: self.editId ?? window.uuid!().string!))
                                 navigate(to: "ListTeams")
                             }
                         }
