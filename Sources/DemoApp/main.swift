@@ -54,7 +54,6 @@ struct ContentView: View {
                 }
                 // Content page
                 Col(width: 10) {
-                    Text(String(describing: hashState.currentArguments))
                     currentPage
                 }
             }
