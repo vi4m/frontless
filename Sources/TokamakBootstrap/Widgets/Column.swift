@@ -8,7 +8,7 @@ public struct Col<Content: View>: View {
     let content: Content
 
     public init(width: Int = 1,
-         @ViewBuilder content: () -> Content)
+                @ViewBuilder content: () -> Content)
     {
         self.content = content()
         self.width = width

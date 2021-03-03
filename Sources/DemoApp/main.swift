@@ -1,11 +1,11 @@
-import JavaScriptKit
-import TokamakDOM
 import CombineShim
-import TokamakBootstrap
-import Logging
 import Foundation
+import JavaScriptKit
+import Logging
+import TokamakBootstrap
+import TokamakDOM
 
-LoggingSystem.bootstrap({ _ in return StreamLogHandler.standardOutput(label:"demo-app") })
+LoggingSystem.bootstrap { _ in StreamLogHandler.standardOutput(label: "demo-app") }
 var logger = Logger(label: "demo-app")
 logger.logLevel = .debug
 
@@ -23,8 +23,8 @@ struct ContentView: View {
 
     @EnvironmentObject var errorViewModel: ErrorsViewModel
     @State var menuItems: [MenuItem] = []
-    
-    @State var currentPage: AnyView? 
+
+    @State var currentPage: AnyView?
     @State var cancellable: AnyCancellable? = nil
 
     func getMenuItem(label: String, id: String, logo: Bool = false) -> MainMenu {
@@ -59,15 +59,12 @@ struct ContentView: View {
                 }
             }
         }._onMount {
-            self.cancellable = hashState.$currentPage.sink { [self] (value) in
-                    currentPage = self.dispatchMenu(page: value)
-                }
-            
+            self.cancellable = hashState.$currentPage.sink { [self] value in
+                currentPage = self.dispatchMenu(page: value)
             }
-        
+        }
     }
 }
-
 
 _ = document.head.object!.insertAdjacentHTML!("beforeend", #"""
 <style type="text/css">
@@ -122,7 +119,5 @@ _ = document.head.object!.insertAdjacentHTML!("beforeend", #"""
 
 </style>
 """#)
-
-
 
 DemoApp.main()

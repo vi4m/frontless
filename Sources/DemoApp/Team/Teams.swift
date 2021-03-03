@@ -11,7 +11,7 @@ struct Team: Codable, ConvertibleToJSValue, Hashable {
 
     func jsValue() -> JSValue {
         return [
-            "name": name
+            "name": name,
         ].jsValue()
     }
 }

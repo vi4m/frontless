@@ -5,7 +5,6 @@ import TokamakDOM
 
 public typealias PickerItem = (value: String, content: String)
 
-
 public struct ComboBox: View {
     var selection: Binding<String>
     var items: [PickerItem]
@@ -28,9 +27,9 @@ public struct ComboBox: View {
                 ForEach(0 ..< items.count) { index in
                     let item = items[index]
                     if item.value == selection.wrappedValue {
-                        HTML("option", ["value": items[index].value, "selected": "true"], content: items[index].content)    
+                        HTML("option", ["value": items[index].value, "selected": "true"], content: items[index].content)
                     } else {
-                        HTML("option", ["value": items[index].value, ], content: items[index].content)
+                        HTML("option", ["value": items[index].value], content: items[index].content)
                     }
                 }
             }

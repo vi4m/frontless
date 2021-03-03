@@ -8,10 +8,10 @@ public struct Table: View {
     @State var columns: [String]
 
     public init(items: Binding<[[String]]>, columns: [String]) {
-        self._items = items
-        self._columns = .init(wrappedValue: columns)
+        _items = items
+        _columns = .init(wrappedValue: columns)
     }
-    
+
     public var body: some View {
         HTML("div", ["class": "s"]) {
             HTML("table", ["class": "table table-striped"]) {

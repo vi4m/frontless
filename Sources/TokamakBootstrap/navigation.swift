@@ -40,7 +40,7 @@ public final class HashState: ObservableObject {
             logger.debug("onHashChange")
             self?.currentHash = location.hash.string!
             let (page, args) = parseHash(i: self!.currentHash)
-            self?.currentArguments = args            
+            self?.currentArguments = args
             self?.currentPage = page
             return .undefined
         }

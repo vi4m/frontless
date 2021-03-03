@@ -26,11 +26,9 @@ public class ValidationState: ObservableObject {
             value == true
         }
     }
-    
-    public init() {
-        
-    }
-    
+
+    public init() {}
+
     public func validate(id: String, input: String, validationFun: (String) -> String?) -> String? {
         if let result = validationFun(input) {
             validations[id] = false
@@ -41,6 +39,5 @@ public class ValidationState: ObservableObject {
         return nil
     }
 
-    deinit {
-    }
+    deinit {}
 }

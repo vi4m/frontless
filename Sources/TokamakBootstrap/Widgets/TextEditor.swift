@@ -13,14 +13,13 @@ public struct TextEditor: View {
 
     public var body: some View {
         return AnyView(DynamicHTML("textarea", [
-          "style": "width: 100%",
+            "style": "width: 100%",
         ], listeners: [
-          "input": { event in
-            if let newValue = event.target.object?.value.string {
-                self.value.wrappedValue = newValue
-            }
-          },
+            "input": { event in
+                if let newValue = event.target.object?.value.string {
+                    self.value.wrappedValue = newValue
+                }
+            },
         ], content: self.value.wrappedValue))
-
     }
 }

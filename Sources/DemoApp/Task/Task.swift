@@ -25,12 +25,12 @@ struct Task: Codable, ConvertibleToJSValue, Hashable {
             "why": why,
             "need": need,
             "project": project,
-            "description": description
+            "description": description,
 
         ].jsValue()
     }
 }
- 
+
 enum TaskStatus: Int, Codable, CaseIterable {
     case open = 0
     case in_progress = 1
@@ -54,7 +54,7 @@ struct TaskAction: Codable, ConvertibleToJSValue, Hashable {
     public var assignee: String = ""
     var comment: String = ""
     var status: TaskStatus
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(assignee)
         hasher.combine(comment)
@@ -62,8 +62,6 @@ struct TaskAction: Codable, ConvertibleToJSValue, Hashable {
 
     func jsValue() -> JSValue {
         return [
-            
-
         ].jsValue()
     }
 }

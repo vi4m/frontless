@@ -10,9 +10,9 @@ public struct MainMenu: View, Hashable {
     let logo: Bool
 
     public init(_ label: String,
-         href: String,
-         selected: Bool = false,
-         logo: Bool = false)
+                href: String,
+                selected: Bool = false,
+                logo: Bool = false)
     {
         self.href = href
         self.label = label
