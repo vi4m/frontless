@@ -36,7 +36,7 @@ struct AddTask: View {
         return Div {
             Form(title: "Add task") {
                 Container {
-                    FormField(label: "Title.",
+                    FormField(label: "Title",
                               helpText: """
                               What's to do?
                               """, validation: Validations.required, state: validationState, text: $title) {
@@ -47,7 +47,7 @@ struct AddTask: View {
                               helpText: """
                               """, validation: Validations.none, state: validationState, text: $description) { TextEditor(value: $description) }
 
-                    FormField(label: "Team", validation: Validations.required, state: validationState, text: $assignee) {
+                    FormField(label: "Team", validation: Validations.required, state: validationState, text: $team) {
                         ComboBox(selection: $team, items: teamModel.teams.map {
                             PickerItem(content: $0.value.name, value: $0.value.id)
                         })
@@ -71,7 +71,7 @@ struct AddTask: View {
                     }
 
                     FormField(label: "Assignee", validation: Validations.required, state: validationState, text: $assignee) {
-                        ComboBox(selection: $assignee, items: taskModel.assignees)
+                        TextField("Username", text: $assignee)
                     }
                 }
                 Row {
