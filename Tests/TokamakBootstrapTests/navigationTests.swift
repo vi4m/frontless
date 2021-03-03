@@ -1,4 +1,6 @@
 import Foundation
+import XCTest
+@testable import TokamakBootstrap
 
 final class NavigationTests: XCTestCase {
     func testParseHash() throws {

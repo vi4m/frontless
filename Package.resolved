@@ -29,30 +29,30 @@
         }
       },
       {
-        "package": "swift-argument-parser",
-        "repositoryURL": "https://github.com/apple/swift-argument-parser",
+        "package": "Runtime",
+        "repositoryURL": "https://github.com/MaxDesiatov/Runtime.git",
         "state": {
           "branch": null,
-          "revision": "9564d61b08a5335ae0a36f789a7d71493eacadfc",
-          "version": "0.3.2"
+          "revision": "a617ead8a125a97e69d6100e4d27922006e82e0a",
+          "version": "2.1.2"
         }
       },
       {
-        "package": "Benchmark",
-        "repositoryURL": "https://github.com/google/swift-benchmark",
+        "package": "swift-log",
+        "repositoryURL": "https://github.com/apple/swift-log.git",
         "state": {
           "branch": null,
-          "revision": "8e0ef8bb7482ab97dcd2cd1d6855bd38921c345d",
-          "version": "0.1.0"
+          "revision": "12d3a8651d32295794a850307f77407f95b8c881",
+          "version": "1.4.1"
         }
       },
       {
         "package": "Tokamak",
-        "repositoryURL": "https://github.com/vi4m/Tokamak",
+        "repositoryURL": "https://github.com/TokamakUI/Tokamak",
         "state": {
-          "branch": "html",
-          "revision": "553f0b4467fce7fda0e849e1c8366ab07374c9cc",
-          "version": null
+          "branch": null,
+          "revision": "b4b0efca4de0ce9cff771649dfbcd13c5736e7f0",
+          "version": "0.6.1"
         }
       }
     ]

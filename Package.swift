@@ -10,19 +10,32 @@ let package = Package(
         .library(
             name: "TokamakBootstrap",
             targets: ["TokamakBootstrap"]),
+        .executable(
+            name: "DemoApp", 
+            targets: ["DemoApp"]
+        )
     ],
     dependencies: [
-        .package(name: "Tokamak", url: "https://github.com/TokamakUI/Tokamak", from: "0.6.1")
+        .package(name: "Tokamak", url: "https://github.com/TokamakUI/Tokamak", from: "0.6.1"),
+        .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0")        
     ],
     targets: [
         .target(
             name: "TokamakBootstrap",
             dependencies: [
                 .product(name: "TokamakDOM", package: "Tokamak"),
-                .product(name: "TokamakShim", package: "Tokamak")                
+                .product(name: "TokamakShim", package: "Tokamak"),
+                .product(name: "Logging", package: "swift-log")                
             ]),
+        .target(
+               name: "DemoApp",
+               dependencies: [
+                .target(name: "TokamakBootstrap"), 
+               ]),
         .testTarget(
             name: "TokamakBootstrapTests",
-            dependencies: ["TokamakBootstrap"]),
+            dependencies: [
+                .target(name: "TokamakBootstrap")
+            ]),
     ]
 )

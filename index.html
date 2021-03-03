@@ -1,0 +1,65 @@
+<html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">  
+            </head>
+            <body>
+                
+                <script type="text/javascript">
+                    /** Network calls implemented in pure JS since 
+			Swift has only access to DOM variables and functions.
+
+			It's here nutil native(async/await swift) PR is merged:
+			https://github.com/swiftwasm/JavaScriptKit/pull/112
+		     **/
+		    
+                    
+                    window.xpost = function(url, obj, handler) { 
+                        var text = "";
+                        console.log('POST ' + url + ' body: ' + obj);
+                        fetch(url, {
+                            method: 'POST', 
+                            cache: 'no-cache', 
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },   
+                            body: JSON.stringify(obj)
+                        })
+                        .then(function(response) {
+                            response.text().then(function(text) {
+                                console.log('DONE')
+                                console.log(text)
+                                const obj = JSON.parse(text)
+                                handler(obj)
+                            })
+                        })
+                        .then(function(text) {
+                            console.log('Request successful', text);
+                        })
+                        .catch(function(error) {
+                            log('Request failed', error)
+                        }); 
+                    }
+                
+                window.xfetch = function(url, handler) { 
+                    var text = "";
+                    fetch(url, {mode: 'cors'})
+                    .then(function(response) {
+                        response.text().then(function(text) {
+                            console.log('DONE')
+                            console.log(text)
+                            const obj = JSON.parse(text)
+                            handler(obj)
+                        })
+                    })
+                    .then(function(text) {
+                        console.log('Request successful', text);
+                    })
+                    .catch(function(error) {
+                        log('Request failed', error)
+                    }); 
+                }
+                
+                    </script>
+            </body>
+    </html
