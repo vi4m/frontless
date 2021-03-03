@@ -28,7 +28,7 @@ struct ContentView: View {
     @State var cancellable: AnyCancellable? = nil
 
     func getMenuItem(label: String, id: String, logo: Bool = false) -> MainMenu {
-        let prefix = "/?"
+        let prefix = "?"
         let selected = (hashState.currentPage == "#\(id)") && !logo
 
         return MainMenu(label, href: "\(prefix)#\(id)", selected: selected, logo: logo)
