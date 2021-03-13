@@ -19,7 +19,7 @@ struct ListTeams: View {
     }
 
     func tableRowFor(team: Team) -> [String] {
-        [team.id,
+        [
          team.name,
          "<a href=\"?#AddTeam?\(team.id)\">Edit <span class='icon-edit'></span></a>"]
     }
@@ -42,7 +42,7 @@ struct ListTeams: View {
             Table(
                 items: filtered,
                 columns: [
-                    "ID", "Name", "Actions",
+                   "Name", "Actions",
                 ]
             )
             Small("Count: \(String(teamViewModel.teams.count))").clipped()

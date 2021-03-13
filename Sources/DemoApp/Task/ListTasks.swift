@@ -26,9 +26,8 @@ struct ListTasks: View {
 
     func tableRowFor(task: Task) -> [String] {
         let teamName = teamViewModel.teams[task.team]?.name ?? "-"
-        return [task.id,
+        return [
                 task.title,
-                task.project,
                 "\(task.status)",
                 task.assignee,
                 teamName,
@@ -62,7 +61,7 @@ struct ListTasks: View {
             Table(
                 items: filtered,
                 columns: [
-                    "ID", "Title", "Project", "Status", "Assignee", "Team", "Actions",
+                    "Title", "Status", "Assignee", "Team", "Actions",
                 ]
             )
             Small("Count: \(String(taskViewModel.tasks.count))").clipped()

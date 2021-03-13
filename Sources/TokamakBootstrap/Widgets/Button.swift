@@ -27,10 +27,10 @@ extension MyModifiedContent: View, ParentView where Content: View {
 
 public enum StyleCommand: String {
     case backgroundColor = "background-color"
-    case color
-    case padding
-    case margin
-    case border
+    case color = "color"
+    case padding = "padding"
+    case margin = "margin"
+    case border = "border"
 }
 
 public class Dom {
