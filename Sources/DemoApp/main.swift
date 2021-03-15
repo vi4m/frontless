@@ -27,34 +27,29 @@ struct ContentView: View {
     @State var currentPage: AnyView?
     @State var cancellable: AnyCancellable? = nil
 
-    func getMenuItem(label: String, id: String, logo: Bool = false) -> MainMenu {
-        let prefix = "?"
-        let selected = (hashState.currentPage == "#\(id)") && !logo
-
-        return MainMenu(label, href: "\(prefix)#\(id)", selected: selected, logo: logo)
-    }
 
     var body: some View {
-        Div(id: "root", style: "overflow: scroll; display: block; justify-content: left; width: 100%; height: 100%") {
+        Div(id: "root", style: "overflow-x: hidden; overflow-y: scroll; display: block; justify-content: left; width: 100%; height: 100%") {
             // Upper menu
             Row {
-                HTML("header", ["class": "row col-sm"]) {
-                    ForEach(self.getMenu(), id: \.self) { item in
+                NavBar(title: "uJira") {
+                    ForEach(self.getMenu(), id: \.href) { (item: MainMenu) in
                         item
                     }
-                    HTML("div", ["class": "col-md-8"], content: "")
                 }
+
                 if errorViewModel.show {
                     Error(error: $errorViewModel.message, show: $errorViewModel.show)
                 }
             }
             Row {
-                // Left menu
-                Col(width: 2) {
-                    Menu(items: $menuItems).frame(width: 300, alignment: .topLeading)
-                }
+//                if !menuItems.isEmpty {
+//                    Col(width: 2) {
+//                        Menu(items: $menuItems)
+//                    }
+//                }                    
                 // Content page
-                Col(width: 10) {
+                Col(width: 11) {
                     currentPage
                 }
             }
@@ -85,6 +80,9 @@ _ = document.head.object!.insertAdjacentHTML!("beforeend", #"""
         transition: all 0.5s ease-in;
     }
 
+    navbar {
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 5%), inset 0 -1px 0 rgb(0 0 0 / 15%);
+    }
 
     a.logo {
     color: white;

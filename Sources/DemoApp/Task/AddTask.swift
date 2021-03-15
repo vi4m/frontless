@@ -33,7 +33,7 @@ struct AddTask: View {
     }
 
     var body: some View {
-        return Div {
+        return Card {
             Form(title: "Add task") {
                 Container {
                     FormField(label: "Title",

@@ -27,11 +27,12 @@ struct ListTasks: View {
     func tableRowFor(task: Task) -> [String] {
         let teamName = teamViewModel.teams[task.team]?.name ?? "-"
         return [
-                task.title,
-                "\(task.status)",
-                task.assignee,
-                teamName,
-                "<a href=\"?#AddTask?\(task.id)\">Edit <span class='icon-edit'></span></a>"]
+            task.title,
+            "\(task.status)",
+            task.assignee,
+            teamName,
+            "<a href=\"?#AddTask?\(task.id)\">Edit <span class='icon-edit'></span></a>",
+        ]
     }
 
     public var body: some View {
@@ -41,12 +42,10 @@ struct ListTasks: View {
             },
             set: { print($0) }
         )
-
-        Container {
-            Row {
-                TextField("Search", text: $text,
-                          onEditingChanged: { _ in
-                          }).textFieldStyle(RoundedBorderTextFieldStyle())
+        Card {
+            Div(class: "input-group") {
+                HTML("span", ["class": "input-group-text"], content: "Search")
+                Input("", text: $text).style([.width: "100"])
                 ComboBox(
                     selection: $choosenTeam,
                     items: teamViewModel.teams.map {
@@ -65,10 +64,6 @@ struct ListTasks: View {
                 ]
             )
             Small("Count: \(String(taskViewModel.tasks.count))").clipped()
-
-                .onAppear {
-                    menuItems = [MenuItem(label: "Add Task", url: "AddTask")]
-                }
         }
     }
 }

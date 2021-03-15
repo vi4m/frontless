@@ -20,8 +20,9 @@ struct ListTeams: View {
 
     func tableRowFor(team: Team) -> [String] {
         [
-         team.name,
-         "<a href=\"?#AddTeam?\(team.id)\">Edit <span class='icon-edit'></span></a>"]
+            team.name,
+            "<a href=\"?#AddTeam?\(team.id)\">Edit <span class='icon-edit'></span></a>",
+        ]
     }
 
     public var body: some View {
@@ -32,24 +33,19 @@ struct ListTeams: View {
             set: { print($0) }
         )
 
-        Container {
-            Row {
-                TextField("Search", text: $text,
-                          onEditingChanged: { _ in
-                          }).textFieldStyle(RoundedBorderTextFieldStyle())
+        Card {
+            Div(class: "input-group") {
+                HTML("span", ["class": "input-group-text"], content: "Search")
+                Input("", text: $text).style([.width: "100"])
             }
 
             Table(
                 items: filtered,
                 columns: [
-                   "Name", "Actions",
+                    "Name", "Actions"
                 ]
             )
             Small("Count: \(String(teamViewModel.teams.count))").clipped()
-
-                .onAppear {
-                    menuItems = [MenuItem(label: "Add Team", url: "AddTeam")]
-                }
         }
     }
 }

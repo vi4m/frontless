@@ -2,7 +2,6 @@ import CombineShim
 import Foundation
 import JavaScriptKit
 import TokamakBootstrap
-import TokamakCore
 import TokamakDOM
 import TokamakStaticHTML
 
@@ -22,7 +21,7 @@ struct AddProject: View {
     }
 
     var body: some View {
-        return Div {
+        return Card {
             Form(title: "Add project") {
                 Container {
                     FormField(label: "Name",
@@ -33,23 +32,23 @@ struct AddProject: View {
                     }
                 }
                 Row {
-                    Col {
-                        Button("Cancel") {
-                            navigate(to: "ListTeams")
-                        }
-                    }
-                    Col {
-                        Button("OK") {
-                            validationState.showHints = true
-                            if validationState.ok {
-                                projectModel.addProject(project: Project(
-                                    id: self.editId ?? window.uuid!().string!,
-                                    name: name
-                                )
-                                )
-                                navigate(to: "ListProjects")
+                        Col {
+                            Button("Cancel", type: .secondary) {
+                                navigate(to: "ListTeams")
                             }
                         }
+                        Col {
+                            Button("OK", type: .primary) {
+                                validationState.showHints = true
+                                if validationState.ok {
+                                    projectModel.addProject(project: Project(
+                                        id: self.editId ?? window.uuid!().string!,
+                                        name: name
+                                    )
+                                    )
+                                    navigate(to: "ListProjects")
+                                }
+                            }
                     }
                 }
             }

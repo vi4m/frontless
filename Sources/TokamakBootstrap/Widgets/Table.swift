@@ -13,8 +13,7 @@ public struct Table: View {
     }
 
     public var body: some View {
-        HTML("div", ["class": "s"]) {
-            HTML("table", ["class": "table table-striped"]) {
+            HTML("table", ["class": "table table-striped table-bordered"]) {
                 HTML("thead") {
                     HTML("tr") {
                         ForEach(columns, id: \.self) { column in
@@ -29,7 +28,6 @@ public struct Table: View {
                                 HTML("td", [:], content: cell)
                             }
                         }
-                    }
                 }
             }
         }

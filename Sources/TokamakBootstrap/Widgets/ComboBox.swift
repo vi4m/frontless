@@ -18,21 +18,18 @@ public struct ComboBox: View {
     }
 
     public var body: some View {
-        AnyView(HTML("label") {
-            Span(" ")
-            DynamicHTML("select", ["class": "_tokamak-formcontrol"], listeners: ["change": {
-                let valueString = $0.target.object!.value.string
-                selection.wrappedValue = valueString!
-            }]) {
-                ForEach(0 ..< items.count) { index in
-                    let item = items[index]
-                    if item.value == selection.wrappedValue {
-                        HTML("option", ["value": items[index].value, "selected": "true"], content: items[index].content)
-                    } else {
-                        HTML("option", ["value": items[index].value], content: items[index].content)
-                    }
+        DynamicHTML("select", ["class": "form-select"], listeners: ["change": {
+            let valueString = $0.target.object!.value.string
+            selection.wrappedValue = valueString!
+        }]) {
+            ForEach(0 ..< items.count) { index in
+                let item = items[index]
+                if item.value == selection.wrappedValue {
+                    HTML("option", ["value": items[index].value, "selected": "true"], content: items[index].content)
+                } else {
+                    HTML("option", ["value": items[index].value], content: items[index].content)
                 }
             }
-        })
+        }
     }
 }

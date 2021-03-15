@@ -24,7 +24,7 @@ struct AddTeam: View {
     }
 
     var body: some View {
-        return Div {
+        return Card {
             Form(title: "Add team") {
                 Container {
                     FormField(label: "Name",

@@ -3,54 +3,10 @@ import JavaScriptKit
 import TokamakCore
 import TokamakDOM
 
-public typealias Style = [StyleCommand: String]
-
-public struct MyModifiedContent<Content> where Content: Dom {
-    @Environment(\.self) public var environment
-    public private(set) var content: Content
-
-    public init(content: Content, style: Style) {
-        self.content = content
-        self.content.setStyle(style: style)
-    }
-}
-
-extension MyModifiedContent: View, ParentView where Content: View {
-    public var body: some View {
-        return self.content.body
-    }
-
-    public var children: [AnyView] {
-        [AnyView(content)]
-    }
-}
-
-public enum StyleCommand: String {
-    case backgroundColor = "background-color"
-    case color = "color"
-    case padding = "padding"
-    case margin = "margin"
-    case border = "border"
-}
-
-public class Dom {
-    func getStyle() -> Style {
-        style
-    }
-
-    func setStyle(style: Style) {
-        self.style = style
-    }
-
-    var style: Style = [:]
-
-    public init() {}
-
-    public func getStyleText() -> String {
-        getStyle().map { key, value in
-            "\(key.rawValue):\(value)"
-        }.joined(separator: ";")
-    }
+public enum ButtonType: String {
+    case primary = "primary"
+    case secondary  = "secondary"
+    
 }
 
 public class Button: Dom, View {
@@ -58,12 +14,17 @@ public class Button: Dom, View {
 
     @State var isPressed: Bool = false
     var action: () -> Void
+    var type: ButtonType
+    
 
     public init(_ label: String,
-                action: @escaping () -> Void)
+                type: ButtonType = .primary,
+                action: @escaping () -> Void
+    )
     {
         self.action = action
         self.label = label
+        self.type = type
     }
 
     public var body: some View {
@@ -77,7 +38,7 @@ public class Button: Dom, View {
 
         return AnyView(DynamicHTML(
             "a",
-            ["class": "button", "style": self.getStyleText()],
+            ["class": "btn btn-\(type.rawValue)", "style": self.getStyleText()],
             listeners: listeners, content: label
         )
         )

@@ -23,8 +23,9 @@ struct ListProjects: View {
 
     func tableRowFor(project: Project) -> [String] {
         return [
-                project.name,
-                "<a href=\"?#AddProject?\(project.id)\">Edit <span class='icon-edit'></span></a>"]
+            project.name,
+            "<a href=\"?#AddProject?\(project.id)\">Edit <span class='icon-edit'></span></a>"
+        ]
     }
 
     public var body: some View {
@@ -35,17 +36,16 @@ struct ListProjects: View {
             set: { print($0) }
         )
 
-        Container {
-            Row {
-                TextField("Search", text: $text,
-                          onEditingChanged: { _ in
-                          }).textFieldStyle(RoundedBorderTextFieldStyle())
+        Card {
+            Div(class: "input-group") {
+                HTML("span", ["class": "input-group-text"], content: "Search")
+                Input("", text: $text).style([.width: "100"])
             }
 
             Table(
                 items: filtered,
                 columns: [
-                    "Name"
+                    "Name", "Actions"
                 ]
             )
             Small("Count: \(String(projectModel.projects.count))").clipped()
