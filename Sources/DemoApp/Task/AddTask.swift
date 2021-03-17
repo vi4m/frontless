@@ -24,6 +24,7 @@ struct AddTask: View {
 
     @ObservedObject public var taskModel = TaskModel()
     @ObservedObject public var teamModel = TeamModel()
+    @ObservedObject public var projectModel = ProjectViewModel()
     @ObservedObject public var validationState = ValidationState()
 
     init(id: String? = nil) {
@@ -36,6 +37,7 @@ struct AddTask: View {
         return Card {
             Form(title: "Add task") {
                 Container {
+
                     FormField(label: "Title",
                               helpText: """
                               What's to do?
@@ -57,6 +59,11 @@ struct AddTask: View {
                             PickerItem(content: String(describing: prio), value: String(prio.rawValue))
                         })
                     }
+                    FormField(label: "Project", validation: Validations.required, state: validationState, text: $project) {
+                        ComboBox(selection: $project, items: projectModel.projects.map {
+                            PickerItem(content: $0.name, value: $0.id)
+                        })
+                    }
                     ShowIf({ priority == "2" }) {
                         FormField(label: "⌛Why so critical?",
                                   helpText: """
@@ -69,14 +76,15 @@ struct AddTask: View {
                             PickerItem(content: String(describing: taskType), value: String(taskType.rawValue))
                         })
                     }
-
                     FormField(label: "Assignee", validation: Validations.required, state: validationState, text: $assignee) {
-                        TextField("Username", text: $assignee)
+                        Input("Username", text: $assignee)
                     }
+
                 }
                 Row {
+                    Col(width: 3) { }
                     Col {
-                        Button("Cancel") {
+                        Button("Cancel", type: .secondary) {
                             navigate(to: "ListTasks")
                         }
                     }
@@ -99,7 +107,7 @@ struct AddTask: View {
                     }
                 }
             }
-            HTML("div", ["class": "no-flex"]) {}
+
         }._onMount {
             self.cancellable = taskModel.$task.sink { [self] task in
                 guard let task = task else {

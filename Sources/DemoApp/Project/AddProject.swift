@@ -32,6 +32,7 @@ struct AddProject: View {
                     }
                 }
                 Row {
+                    Col(width: 3) { }
                         Col {
                             Button("Cancel", type: .secondary) {
                                 navigate(to: "ListTeams")

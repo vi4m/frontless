@@ -19,9 +19,7 @@ public struct Form<Content: View>: View {
     }
 
     public var body: some View {
-//        Text("Count: \(self.children.count)")
         HTML("div", ["class": "section"]) {
-//            HTML("h3", content: title)
             HTML("form", [:]) {
                 HTML("fieldset", ["class": "doc md-12"]) {
                     HTML("legend", ["class": "doc"], content: title)

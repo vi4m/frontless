@@ -35,8 +35,9 @@ struct AddTeam: View {
                     }
                 }
                 Row {
+                    Col(width: 3) { }
                     Col {
-                        Button("Cancel") {
+                        Button("Cancel", type: .secondary) {
                             navigate(to: "ListTeams")
                         }
                     }

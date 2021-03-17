@@ -2,6 +2,7 @@ import CombineShim
 import JavaScriptKit
 import TokamakCore
 import TokamakDOM
+import TokamakStaticHTML
 
 public class Input: Dom, View {
     let label: String
@@ -29,7 +30,11 @@ public class Input: Dom, View {
         return AnyView(DynamicHTML(
             "input",
             [
-                "type": "search", "placeholder": placeholder, "class": "form-control", "style": self.getStyleText()
+                HTMLAttribute("type", isUpdatedAsProperty: true) : "text",
+                HTMLAttribute("placeholder", isUpdatedAsProperty: true): placeholder,
+                HTMLAttribute("class", isUpdatedAsProperty: true): "form-control",
+                HTMLAttribute("style", isUpdatedAsProperty: true) : self.getStyleText(),
+                .value: self.text
             ],
             listeners: listeners, content: label
         )
