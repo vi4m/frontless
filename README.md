@@ -1,4 +1,4 @@
-# Tokamak Bootstrap
+# Frontless - don't use React and Javascript, when you can use Swift :-) 
 
 TokamakBoostrap is set of components to build web applications in Swift/SwiftUI - running natively in the browser via webassembly.
 It's built on top of https://github.com/TokamakUI/Tokamak, but differs in set of goals:
