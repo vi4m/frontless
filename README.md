@@ -1,8 +1,10 @@
-# Frontless - don't use React and Javascript, when you can use Swift :-) 
+# Frontless - 
 
-TokamakBoostrap is set of components to build web applications in Swift/SwiftUI - running natively in the browser via webassembly.
-It's built on top of https://github.com/TokamakUI/Tokamak, but differs in set of goals:
+_Don't use Javascript, React, Npm, Gulp, Grunt, Webpack, when you can simply use Swift! :-)_
 
-* It's for Swift developers who want to build rich, interactive, Web, (CRUD?) applications
-* It has non - SwiftUI compatible additions, such as Table, Menu, built on Bootstrap CSS framework
-* It allows writing Single Page Apps (navigation, href links etc)
+Frontless is the set of components for building web applications in Swift/SwiftUI - running natively in the browser via Web Assembly.
+It's built on top of https://github.com/TokamakUI/Tokamak, but differs in goals:
+
+* It's more web friendly - it uses Bootstrap CSS, has native href links, and forward/back navigation
+* It's suitable for building bigger desktop web-apps, such as CRUD web apps
+* It has SwiftUI look and feel, but its components are specifically designed for the web, such as Table, Menu, Filters
