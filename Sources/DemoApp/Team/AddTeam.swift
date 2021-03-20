@@ -55,7 +55,6 @@ struct AddTeam: View {
                     }
                 }
             }
-            HTML("div", ["class": "no-flex"]) {}
         }._onMount {
             self.cancellable = dataViewModel.$team.sink { [self] team in
                 guard let team = team else {

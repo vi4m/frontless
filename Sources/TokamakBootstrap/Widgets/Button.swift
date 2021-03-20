@@ -5,8 +5,7 @@ import TokamakDOM
 
 public enum ButtonType: String {
     case primary = "primary"
-    case secondary  = "secondary"
-    
+    case secondary  = "secondary"    
 }
 
 public class Button: Dom, View {

@@ -53,7 +53,6 @@ struct AddProject: View {
                     }
                 }
             }
-            HTML("div", ["class": "no-flex"]) {}
         }._onMount {
             self.cancellable = projectModel.$project.sink { [self] project in
                 guard let project = project else {

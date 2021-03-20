@@ -6,6 +6,7 @@ import TokamakBootstrap
 import TokamakDOM
 
 LoggingSystem.bootstrap { _ in StreamLogHandler.standardOutput(label: "demo-app") }
+
 var logger = Logger(label: "demo-app")
 logger.logLevel = .debug
 
