@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import TokamakBootstrap
+@testable import Frontless
 
 final class NavigationTests: XCTestCase {
     func testParseHash() throws {

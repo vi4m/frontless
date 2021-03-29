@@ -1,5 +1,5 @@
 import JavaScriptKit
-import TokamakBootstrap
+import Frontless
 
 struct Team: Codable, ConvertibleToJSValue, Hashable {
     var name: String

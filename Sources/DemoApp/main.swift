@@ -2,7 +2,7 @@ import CombineShim
 import Foundation
 import JavaScriptKit
 import Logging
-import TokamakBootstrap
+import Frontless
 import TokamakDOM
 
 LoggingSystem.bootstrap { _ in StreamLogHandler.standardOutput(label: "demo-app") }

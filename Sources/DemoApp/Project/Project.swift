@@ -1,5 +1,5 @@
 import JavaScriptKit
-import TokamakBootstrap
+import Frontless
 
 struct Project: Codable, ConvertibleToJSValue, Hashable {
     public var id: String

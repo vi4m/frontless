@@ -1,5 +1,5 @@
 import XCTest
-@testable import TokamakBootstrap
+@testable import Frontless
 import TokamakDOM
 import TokamakStaticHTML
 
@@ -9,7 +9,7 @@ final class ButtonTests: XCTestCase {
         struct testButtonView: View {
             @State var clicked: Bool = false
             var body: some View {
-                TokamakBootstrap.Button("test") {
+                Frontless.Button("test") {
                    clicked = true 
                 }
             }

@@ -1,5 +1,5 @@
 import Foundation
-import TokamakBootstrap
+import Frontless
 import TokamakDOM
 
 class ErrorsViewModel: ObservableObject {

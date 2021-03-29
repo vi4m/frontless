@@ -2,7 +2,7 @@ import CombineShim
 import Foundation
 import JavaScriptKit
 import Logging
-import TokamakBootstrap
+import Frontless
 import TokamakDOM
 
 public func measure(_ f: () -> Void) -> Double {

@@ -1,5 +1,5 @@
 import XCTest
-@testable import TokamakBootstrap
+@testable import Frontless
 import TokamakDOM
 import TokamakStaticHTML
 

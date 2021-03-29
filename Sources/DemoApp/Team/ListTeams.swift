@@ -1,6 +1,6 @@
 import CombineShim
 import JavaScriptKit
-import TokamakBootstrap
+import Frontless
 import TokamakDOM
 import TokamakStaticHTML
 

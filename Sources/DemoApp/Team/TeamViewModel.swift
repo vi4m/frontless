@@ -1,7 +1,7 @@
 import CombineShim
 import Foundation
 import JavaScriptKit
-import TokamakBootstrap
+import Frontless
 import TokamakCore
 import TokamakDOM
 
