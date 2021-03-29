@@ -3,7 +3,6 @@ import Foundation
 import JavaScriptKit
 import TokamakBootstrap
 import TokamakDOM
-import TokamakStaticHTML
 
 struct AddProject: View {
     @State var name: String = ""
@@ -23,33 +22,25 @@ struct AddProject: View {
     var body: some View {
         return Card {
             Form(title: "Add project") {
-                Container {
-                    FormField(label: "Name",
-                              helpText: """
-                              What's the project name?
-                              """, validation: Validations.required, state: validationState, text: $name) {
-                        TextEditor(value: $name)
-                    }
+                FormField(label: "Name",
+                          helpText: """
+                          What's the project name?
+                          """, validation: Validations.required, state: validationState, text: $name) {
+                    TextEditor(value: $name)
                 }
-                Row {
-                    Col(width: 3) { }
-                        Col {
-                            Button("Cancel", type: .secondary) {
-                                navigate(to: "ListTeams")
-                            }
-                        }
-                        Col {
-                            Button("OK", type: .primary) {
-                                validationState.showHints = true
-                                if validationState.ok {
-                                    projectModel.addProject(project: Project(
-                                        id: self.editId ?? window.uuid!().string!,
-                                        name: name
-                                    )
-                                    )
-                                    navigate(to: "ListProjects")
-                                }
-                            }
+                Button("Cancel", type: .secondary) {
+                    navigate(to: "ListTeams")
+                }.clipped()
+
+                Button("OK", type: .primary) {
+                    validationState.showHints = true
+                    if validationState.ok {
+                        projectModel.addProject(project: Project(
+                            id: self.editId ?? window.uuid!().string!,
+                            name: name
+                        )
+                        )
+                        navigate(to: "ListProjects")
                     }
                 }
             }

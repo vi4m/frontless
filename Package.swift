@@ -4,12 +4,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "TokamakBootstrap", 
+    name: "Frontless", 
     platforms: [.macOS(.v11)],
     products: [
         .library(
-            name: "TokamakBootstrap",
-            targets: ["TokamakBootstrap"]),
+            name: "Frontless",
+            targets: ["Frontless"]),
         .executable(
             name: "DemoApp", 
             targets: ["DemoApp"]
@@ -21,7 +21,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "TokamakBootstrap",
+            name: "Frontless",
             dependencies: [
                 .product(name: "TokamakDOM", package: "Tokamak"),
                 .product(name: "TokamakShim", package: "Tokamak"),
@@ -30,12 +30,12 @@ let package = Package(
         .target(
                name: "DemoApp",
                dependencies: [
-                .target(name: "TokamakBootstrap"), 
+                .target(name: "Frontless"), 
                ]),
         .testTarget(
             name: "TokamakBootstrapTests",
             dependencies: [
-                .target(name: "TokamakBootstrap")
+                .target(name: "Frontless")
             ]),
     ]
 )

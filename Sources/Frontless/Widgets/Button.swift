@@ -14,12 +14,10 @@ public class Button: Dom, View {
     @State var isPressed: Bool = false
     var action: () -> Void
     var type: ButtonType
-    
 
     public init(_ label: String,
                 type: ButtonType = .primary,
-                action: @escaping () -> Void
-    )
+                action: @escaping () -> Void)
     {
         self.action = action
         self.label = label
@@ -37,15 +35,19 @@ public class Button: Dom, View {
 
         return AnyView(DynamicHTML(
             "a",
-            ["class": "btn btn-\(type.rawValue)", "style": self.getStyleText()],
+            ["class": "btn btn-\(type.rawValue) \(self.getClassesText())", "style": self.getStyleText()],
             listeners: listeners, content: label
         )
         )
     }
 }
 
-extension Button {
-    public func style(_ style: Style) -> some View {
+public extension Button {
+    func style(_ style: Style) -> some View {
         return MyModifiedContent(content: self, style: style)
+    }
+
+    func klass(_ klasses: String ...) -> some View {
+        return MyModifiedContent(content: self, klasses: klasses)
     }
 }

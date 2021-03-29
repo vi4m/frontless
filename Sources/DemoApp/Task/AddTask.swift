@@ -36,6 +36,8 @@ struct AddTask: View {
     var body: some View {
         return Card {
             Form(title: "Add task") {
+                Input("Username", text: $assignee)                    
+                .style([.width: "100"])                
                 Container {
 
                     FormField(label: "Title",
@@ -79,7 +81,6 @@ struct AddTask: View {
                     FormField(label: "Assignee", validation: Validations.required, state: validationState, text: $assignee) {
                         Input("Username", text: $assignee)
                     }
-
                 }
                 Row {
                     Col(width: 3) { }

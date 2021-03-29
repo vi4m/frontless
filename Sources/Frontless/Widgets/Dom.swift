@@ -4,6 +4,7 @@ import TokamakCore
 import TokamakDOM
 
 public typealias Style = [StyleCommand: String]
+public typealias HTMLClasses = [String]
 
 public struct MyModifiedContent<Content> where Content: Dom {
     @Environment(\.self) public var environment
@@ -12,6 +13,11 @@ public struct MyModifiedContent<Content> where Content: Dom {
     public init(content: Content, style: Style) {
         self.content = content
         self.content.setStyle(style: style)
+    }
+
+    public init(content: Content, klasses: HTMLClasses) {
+        self.content = content
+        self.content.setClass(klasses: klasses)
     }
 }
 
@@ -43,7 +49,16 @@ public class Dom {
         self.style = style
     }
 
+    func setClass(klasses: HTMLClasses) {
+        self.klasses = klasses
+    }
+
+    func getKlasses() -> HTMLClasses {
+        klasses
+    }
+
     var style: Style = [:]
+    var klasses: HTMLClasses = []
 
     public init() {}
 
@@ -51,5 +66,9 @@ public class Dom {
         getStyle().map { key, value in
             "\(key.rawValue):\(value)"
         }.joined(separator: ";")
+    }
+
+    public func getClassesText() -> String {
+        getKlasses().joined(separator: " ")
     }
 }
