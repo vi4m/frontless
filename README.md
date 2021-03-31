@@ -10,5 +10,9 @@ It's built on top of https://github.com/TokamakUI/Tokamak, but differs in goals:
 * It's suitable for building bigger desktop web-apps, such as CRUD web apps
 * It has SwiftUI look and feel, but its components are specifically designed for the web, such as Table, Menu, Filters
 
+Live demo: [Todo App built as SPA, hosted as static files on Github](https://www.marcinkliks.pl/swift-wasm-app/?#ListTasks)
+
 ￼![image](https://user-images.githubusercontent.com/552398/111958567-abd9ec00-8aed-11eb-8394-7f41b9eaf192.png)
+
+
 
