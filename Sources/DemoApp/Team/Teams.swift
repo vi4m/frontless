@@ -1,17 +1,17 @@
-import JavaScriptKit
 import Frontless
+import JavaScriptKit
 
 struct Team: Codable, ConvertibleToJSValue, Hashable {
-    var name: String
-    var id: String
+  var name: String
+  var id: String
 
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-    }
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(name)
+  }
 
-    func jsValue() -> JSValue {
-        return [
-            "name": name,
-        ].jsValue()
-    }
+  func jsValue() -> JSValue {
+    return [
+      "name": name
+    ].jsValue()
+  }
 }

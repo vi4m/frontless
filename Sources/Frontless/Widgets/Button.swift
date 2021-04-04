@@ -4,50 +4,55 @@ import TokamakCore
 import TokamakDOM
 
 public enum ButtonType: String {
-    case primary = "primary"
-    case secondary  = "secondary"    
+  case primary = "primary"
+  case secondary = "secondary"
 }
 
 public class Button: Dom, View {
-    let label: String
+  let label: String
 
-    @State var isPressed: Bool = false
-    var action: () -> Void
-    var type: ButtonType
+  @State var isPressed: Bool = false
+  var action: () -> Void
+  var type: ButtonType
 
-    public init(_ label: String,
-                type: ButtonType = .primary,
-                action: @escaping () -> Void)
-    {
-        self.action = action
-        self.label = label
-        self.type = type
-    }
+  public init(
+    _ label: String,
+    type: ButtonType = .primary,
+    action: @escaping () -> Void
+  ) {
+    self.action = action
+    self.label = label
+    self.type = type
+  }
 
-    public var body: some View {
-        let listeners: [String: Listener] = [
-            "pointerdown": { _ in self.isPressed = true },
-            "pointerup": { [self] _ in
-                self.isPressed = false
-                action()
-            },
-        ]
+  public var body: some View {
+    let listeners: [String: Listener] = [
+      "pointerdown": { _ in self.isPressed = true },
+      "pointerup": { [self] _ in
+        self.isPressed = false
+        action()
+      },
+    ]
 
-        return AnyView(DynamicHTML(
-            "a",
-            ["class": "btn btn-\(type.rawValue) \(self.getClassesText())", "style": self.getStyleText()],
-            listeners: listeners, content: label
-        )
-        )
-    }
+    return AnyView(
+      DynamicHTML(
+        "a",
+        [
+          "class": "btn btn-\(type.rawValue) \(self.getClassesText())",
+          "style": self.getStyleText(),
+        ],
+        listeners: listeners, content: label
+      )
+    )
+  }
 }
 
-public extension Button {
-    func style(_ style: Style) -> some View {
-        return MyModifiedContent(content: self, style: style)
-    }
+extension Button {
+  public func style(_ style: Style) -> some View {
+    return MyModifiedContent(content: self, style: style)
+  }
 
-    func klass(_ klasses: String ...) -> some View {
-        return MyModifiedContent(content: self, klasses: klasses)
-    }
+  public func klass(_ klasses: String...) -> some View {
+    return MyModifiedContent(content: self, klasses: klasses)
+  }
 }
