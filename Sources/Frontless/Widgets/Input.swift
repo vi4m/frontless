@@ -32,13 +32,11 @@ public class Input: Dom, View {
       DynamicHTML(
         "input",
         [
-          "type": "text", "value": "", "placeholder": placeholder, "class": "form-control",
-          // "style": self.getStyleText()
+          HTMLAttribute("value", isUpdatedAsProperty: true): self.text,
           HTMLAttribute("type", isUpdatedAsProperty: true): "text",
           HTMLAttribute("placeholder", isUpdatedAsProperty: true): placeholder,
           HTMLAttribute("class", isUpdatedAsProperty: true): "form-control",
           HTMLAttribute("style", isUpdatedAsProperty: true): self.getStyleText(),
-          .value: self.text,
         ],
         listeners: listeners, content: label
       )
