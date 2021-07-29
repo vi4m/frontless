@@ -6,4 +6,4 @@ public let window = JSObject.global.window.object!
 public let document = JSObject.global.document.object!
 public let math = JSObject.global.Math.object!
 
-let logger = Logger(label: "tokamak-bootstrap")
+let logger = Logger(label: "frontless")
