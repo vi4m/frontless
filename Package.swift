@@ -16,7 +16,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(name: "Tokamak", url: "https://github.com/TokamakUI/Tokamak", from: "0.6.1"),
+        .package(name: "Tokamak", url: "https://github.com/TokamakUI/Tokamak", from: "0.8.0"),
         .package(url: "https://github.com/apple/swift-log.git", from: "1.0.0"), 
         .package(url: "https://github.com/OpenCombine/OpenCombine.git", from: "0.12.0")
     ],
@@ -25,7 +25,6 @@ let package = Package(
             name: "Frontless",
             dependencies: [
                 .product(name: "TokamakDOM", package: "Tokamak"),
-                .product(name: "TokamakShim", package: "Tokamak"),
                 .product(name: "Logging", package: "swift-log"), 
                 .product(name: "OpenCombine", package: "OpenCombine"),                 
             ]),

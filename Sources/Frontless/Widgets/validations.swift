@@ -1,4 +1,3 @@
-import CombineShim
 import JavaScriptKit
 import TokamakDOM
 
